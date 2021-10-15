@@ -8,7 +8,6 @@ use ApiPlatform\Core\Annotation\ApiProperty;
 use ApiPlatform\Core\Annotation\ApiResource;
 use ApiPlatform\Core\Bridge\Doctrine\Common\Filter\SearchFilterInterface;
 use ApiPlatform\Core\Bridge\Doctrine\MongoDbOdm\Filter\DateFilter;
-use ApiPlatform\Core\Bridge\Doctrine\MongoDbOdm\Filter\NumericFilter;
 use ApiPlatform\Core\Bridge\Doctrine\MongoDbOdm\Filter\OrderFilter;
 use ApiPlatform\Core\Bridge\Doctrine\MongoDbOdm\Filter\SearchFilter;
 use Doctrine\ODM\MongoDB\Mapping\Annotations\Document;
@@ -46,7 +45,6 @@ use Symfony\Component\Validator\Constraints\Url;
                                 ]
                             ]
                         ]
-
                     ],
                 ]
             ]
@@ -59,11 +57,11 @@ use Symfony\Component\Validator\Constraints\Url;
     normalizationContext: ['groups' => ['read']]
 )]
 #[ApiFilter(DateFilter::class, properties: ['hitAt'])]
-#[ApiFilter(NumericFilter::class, properties: ['customerId'])]
 #[ApiFilter(OrderFilter::class, properties: ['hitAt' => 'ASC'])]
 #[ApiFilter(SearchFilter::class, properties: [
     'link' => SearchFilterInterface::STRATEGY_EXACT,
-    'linkType' => SearchFilterInterface::STRATEGY_EXACT
+    'linkType' => SearchFilterInterface::STRATEGY_EXACT,
+    'customerId' => SearchFilterInterface::STRATEGY_EXACT,
 ])]
 class Hit
 {
@@ -101,13 +99,10 @@ class Hit
     public string $linkType;
 
     /**
-     * @Field(type="integer")
+     * @Field(type="string")
      */
     #[Groups(["read", "write"])]
-    #[NotBlank]
-    #[NotNull]
-    #[Positive]
-    public int $customerId;
+    public string $customerId;
 
     /**
      * @Field(type="date")

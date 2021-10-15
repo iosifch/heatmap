@@ -23,5 +23,5 @@ services:
             - '../src/Kernel.php'
             - '../src/Tests/'
 
-    # add more service definitions when explicit configuration is needed
-    # please note that last definitions always *replace* previous ones
+    App\DataPersister\CustomerJourneyDataPersister:
+        decorates: api_platform.doctrine_mongodb.odm.data_persister
