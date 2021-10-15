@@ -18,4 +18,4 @@ RUN set -uex; \
 
 WORKDIR /var/www/html
 
-CMD ["php", "-S", "0.0.0.0:8080", "-t", "symfony/public"]
+CMD ["php", "-S", "0.0.0.0:8080", "-t", "public"]
